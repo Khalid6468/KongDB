@@ -1,0 +1,197 @@
+version: '3.8'
+
+services:
+  # KongDB Coordinator Node
+  kongdb-coordinator:
+    build: .
+    container_name: kongdb-coordinator
+    ports:
+      - "8080:8080"
+    environment:
+      - KONGDB_NODE_ID=coordinator
+      - KONGDB_NODE_ROLE=coordinator
+      - KONGDB_DATA_DIR=/app/data
+      - KONGDB_LOG_LEVEL=debug
+      - KONGDB_CLUSTER_MODE=true
+      - KONGDB_BOOTSTRAP=true
+    volumes:
+      - kongdb-coordinator-data:/app/data
+      - ./logs:/app/logs
+    networks:
+      - kongdb-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # KongDB Executor Node 1
+  kongdb-executor-1:
+    build: .
+    container_name: kongdb-executor-1
+    ports:
+      - "8081:8080"
+    environment:
+      - KONGDB_NODE_ID=executor-1
+      - KONGDB_NODE_ROLE=executor
+      - KONGDB_DATA_DIR=/app/data
+      - KONGDB_LOG_LEVEL=debug
+      - KONGDB_CLUSTER_MODE=true
+      - KONGDB_COORDINATOR_HOST=kongdb-coordinator
+      - KONGDB_COORDINATOR_PORT=8080
+    volumes:
+      - kongdb-executor-1-data:/app/data
+      - ./logs:/app/logs
+    networks:
+      - kongdb-network
+    depends_on:
+      kongdb-coordinator:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # KongDB Executor Node 2
+  kongdb-executor-2:
+    build: .
+    container_name: kongdb-executor-2
+    ports:
+      - "8082:8080"
+    environment:
+      - KONGDB_NODE_ID=executor-2
+      - KONGDB_NODE_ROLE=executor
+      - KONGDB_DATA_DIR=/app/data
+      - KONGDB_LOG_LEVEL=debug
+      - KONGDB_CLUSTER_MODE=true
+      - KONGDB_COORDINATOR_HOST=kongdb-coordinator
+      - KONGDB_COORDINATOR_PORT=8080
+    volumes:
+      - kongdb-executor-2-data:/app/data
+      - ./logs:/app/logs
+    networks:
+      - kongdb-network
+    depends_on:
+      kongdb-coordinator:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # KongDB Storage Node 1
+  kongdb-storage-1:
+    build: .
+    container_name: kongdb-storage-1
+    ports:
+      - "8083:8080"
+    environment:
+      - KONGDB_NODE_ID=storage-1
+      - KONGDB_NODE_ROLE=storage
+      - KONGDB_DATA_DIR=/app/data
+      - KONGDB_LOG_LEVEL=debug
+      - KONGDB_CLUSTER_MODE=true
+      - KONGDB_COORDINATOR_HOST=kongdb-coordinator
+      - KONGDB_COORDINATOR_PORT=8080
+    volumes:
+      - kongdb-storage-1-data:/app/data
+      - ./logs:/app/logs
+    networks:
+      - kongdb-network
+    depends_on:
+      kongdb-coordinator:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # KongDB Storage Node 2
+  kongdb-storage-2:
+    build: .
+    container_name: kongdb-storage-2
+    ports:
+      - "8084:8080"
+    environment:
+      - KONGDB_NODE_ID=storage-2
+      - KONGDB_NODE_ROLE=storage
+      - KONGDB_DATA_DIR=/app/data
+      - KONGDB_LOG_LEVEL=debug
+      - KONGDB_CLUSTER_MODE=true
+      - KONGDB_COORDINATOR_HOST=kongdb-coordinator
+      - KONGDB_COORDINATOR_PORT=8080
+    volumes:
+      - kongdb-storage-2-data:/app/data
+      - ./logs:/app/logs
+    networks:
+      - kongdb-network
+    depends_on:
+      kongdb-coordinator:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # KongDB Client (for testing)
+  kongdb-client:
+    build: .
+    container_name: kongdb-client
+    environment:
+      - KONGDB_COORDINATOR_HOST=kongdb-coordinator
+      - KONGDB_COORDINATOR_PORT=8080
+    volumes:
+      - ./examples:/app/examples
+      - ./test:/app/test
+    networks:
+      - kongdb-network
+    depends_on:
+      kongdb-coordinator:
+        condition: service_healthy
+      kongdb-executor-1:
+        condition: service_healthy
+      kongdb-executor-2:
+        condition: service_healthy
+      kongdb-storage-1:
+        condition: service_healthy
+      kongdb-storage-2:
+        condition: service_healthy
+    command: ["tail", "-f", "/dev/null"]  # Keep container running
+
+  # Monitoring (optional)
+  kongdb-monitor:
+    image: grafana/grafana:latest
+    container_name: kongdb-monitor
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - kongdb-monitor-data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources
+    networks:
+      - kongdb-network
+    depends_on:
+      - kongdb-coordinator
+
+volumes:
+  kongdb-coordinator-data:
+  kongdb-executor-1-data:
+  kongdb-executor-2-data:
+  kongdb-storage-1-data:
+  kongdb-storage-2-data:
+  kongdb-monitor-data:
+
+networks:
+  kongdb-network:
+    driver: bridge 
