@@ -25,8 +25,8 @@ func main() {
 	}
 
 	logger.Info("Starting KongDB server example...")
-	logger.Info("Server will be available at", zap.String("address", "http://localhost:8080"))
-	logger.Info("Health check available at", zap.String("endpoint", "http://localhost:8080/health"))
+	logger.Info("Server will be available at", zap.String("address", "http://localhost:6468"))
+	logger.Info("Health check available at", zap.String("endpoint", "http://localhost:6468/health"))
 
 	// Start server (this will block)
 	if err := srv.Start(); err != nil {

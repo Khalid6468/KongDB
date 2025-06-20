@@ -57,7 +57,7 @@ func LoadConfig(path string) (*Config, error) {
 	return &Config{
 		Server: ServerConfig{
 			Host:            "localhost",
-			Port:            8080,
+			Port:            6468,
 			ShutdownTimeout: 30 * time.Second,
 			ReadTimeout:     15 * time.Second,
 			WriteTimeout:    15 * time.Second,

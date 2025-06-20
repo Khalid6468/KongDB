@@ -51,7 +51,7 @@ RUN mkdir -p /app/data && \
 USER kongdb
 
 # Expose default port
-EXPOSE 8080
+EXPOSE 6468
 
 # Set environment variables
 ENV KONGDB_DATA_DIR=/app/data
@@ -59,7 +59,7 @@ ENV KONGDB_LOG_LEVEL=info
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD wget --no-verbose --tries=1 --spider http://localhost:8080/health || exit 1
+    CMD wget --no-verbose --tries=1 --spider http://localhost:6468/health || exit 1
 
 # Default command
 CMD ["./kongdb"] 

@@ -14,7 +14,7 @@ import (
 
 var (
 	configPath = flag.String("config", "configs/kongdb.yaml", "Path to configuration file")
-	port       = flag.Int("port", 8080, "Server port")
+	port       = flag.Int("port", 6468, "Server port")
 	host       = flag.String("host", "localhost", "Server host")
 	debug      = flag.Bool("debug", false, "Enable debug mode")
 )
@@ -34,7 +34,7 @@ func main() {
 	}
 
 	// Override config with command line flags
-	if *port != 8080 {
+	if *port != 6468 {
 		config.Server.Port = *port
 	}
 	if *host != "localhost" {

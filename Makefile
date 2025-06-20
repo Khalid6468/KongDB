@@ -128,7 +128,7 @@ docker-build:
 # Run KongDB in Docker
 docker-run:
 	@echo "Running KongDB in Docker..."
-	docker run -p 8080:8080 -v $(PWD)/data:/app/data kongdb:latest
+	docker run -p 6468:6468 -v $(PWD)/data:/app/data kongdb:latest
 
 # Development helpers
 dev-setup: install format lint
