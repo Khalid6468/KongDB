@@ -141,7 +141,7 @@ func TestTypeRegistry(t *testing.T) {
 
 	mockType2 := &MockType{
 		metadata: &types.TypeMetadata{
-			ID:        types.TypeIDVarChar,
+			ID:        types.TypeIDVarchar,
 			Name:      "VARCHAR",
 			Size:      -1,
 			Alignment: 1,
@@ -166,7 +166,7 @@ func TestTypeRegistry(t *testing.T) {
 	assert.True(t, exists)
 	assert.Equal(t, mockType1, typ)
 
-	typ, exists = registry.GetByID(types.TypeIDVarChar)
+	typ, exists = registry.GetByID(types.TypeIDVarchar)
 	assert.True(t, exists)
 	assert.Equal(t, mockType2, typ)
 
@@ -301,7 +301,7 @@ func TestTypeUtilityFunctions(t *testing.T) {
 
 	variableType := &MockType{
 		metadata: &types.TypeMetadata{
-			ID:   types.TypeIDVarChar,
+			ID:   types.TypeIDVarchar,
 			Name: "VARCHAR",
 			Size: -1,
 		},
@@ -356,7 +356,7 @@ func TestTypeIDSerialization(t *testing.T) {
 		types.TypeIDUnknown,
 		types.TypeIDBool,
 		types.TypeIDInt32,
-		types.TypeIDVarChar,
+		types.TypeIDVarchar,
 		types.TypeIDText,
 	}
 

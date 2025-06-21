@@ -22,7 +22,7 @@ const (
 	TypeIDFloat32
 	TypeIDFloat64
 	TypeIDText
-	TypeIDVarChar
+	TypeIDVarchar
 	TypeIDTimestamp
 	TypeIDDate
 	TypeIDTime
