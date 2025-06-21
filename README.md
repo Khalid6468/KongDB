@@ -1,4 +1,4 @@
-# KongDB - A Database System Built with Test-Driven Development
+# KongDB - An experimental database engine written in Golang—my open lab for poking at the guts of storage engines, indexing, MVCC, and Raft-style replication. 
 
 [![Go Version](https://img.shields.io/badge/Go-1.21+-blue.svg)](https://golang.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
@@ -39,12 +39,6 @@ KongDB is a relational database management system (RDBMS) implemented in Go, des
 - Experience building complex systems with TDD
 - Develop better understanding of distributed systems
 
-### Technical Objectives
-- Implement a production-ready database architecture
-- Achieve high performance for relational workloads
-- Maintain ACID properties across distributed nodes
-- Provide clear separation of concerns between components
-
 ## Architecture
 
 ### High-Level Architecture
@@ -59,7 +53,7 @@ KongDB is a relational database management system (RDBMS) implemented in Go, des
 └─────────────────┘    └─────────────────┘    └─────────────────┘
 ```
 
-### Future Distributed Architecture(Primitive)
+### Future Distributed Architecture(Deferred)
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                        Client Layer                             │
