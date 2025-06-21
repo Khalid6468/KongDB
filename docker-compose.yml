@@ -6,7 +6,7 @@ services:
     build: .
     container_name: kongdb-coordinator
     ports:
-      - "8080:8080"
+      - "6468:6468"
     environment:
       - KONGDB_NODE_ID=coordinator
       - KONGDB_NODE_ROLE=coordinator
@@ -20,7 +20,7 @@ services:
     networks:
       - kongdb-network
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:6468/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -31,7 +31,7 @@ services:
     build: .
     container_name: kongdb-executor-1
     ports:
-      - "8081:8080"
+      - "6469:6468"
     environment:
       - KONGDB_NODE_ID=executor-1
       - KONGDB_NODE_ROLE=executor
@@ -39,7 +39,7 @@ services:
       - KONGDB_LOG_LEVEL=debug
       - KONGDB_CLUSTER_MODE=true
       - KONGDB_COORDINATOR_HOST=kongdb-coordinator
-      - KONGDB_COORDINATOR_PORT=8080
+      - KONGDB_COORDINATOR_PORT=6468
     volumes:
       - kongdb-executor-1-data:/app/data
       - ./logs:/app/logs
@@ -49,7 +49,7 @@ services:
       kongdb-coordinator:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:6468/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -60,7 +60,7 @@ services:
     build: .
     container_name: kongdb-executor-2
     ports:
-      - "8082:8080"
+      - "6470:6468"
     environment:
       - KONGDB_NODE_ID=executor-2
       - KONGDB_NODE_ROLE=executor
@@ -68,7 +68,7 @@ services:
       - KONGDB_LOG_LEVEL=debug
       - KONGDB_CLUSTER_MODE=true
       - KONGDB_COORDINATOR_HOST=kongdb-coordinator
-      - KONGDB_COORDINATOR_PORT=8080
+      - KONGDB_COORDINATOR_PORT=6468
     volumes:
       - kongdb-executor-2-data:/app/data
       - ./logs:/app/logs
@@ -78,7 +78,7 @@ services:
       kongdb-coordinator:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:6468/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -89,7 +89,7 @@ services:
     build: .
     container_name: kongdb-storage-1
     ports:
-      - "8083:8080"
+      - "6471:6468"
     environment:
       - KONGDB_NODE_ID=storage-1
       - KONGDB_NODE_ROLE=storage
@@ -97,7 +97,7 @@ services:
       - KONGDB_LOG_LEVEL=debug
       - KONGDB_CLUSTER_MODE=true
       - KONGDB_COORDINATOR_HOST=kongdb-coordinator
-      - KONGDB_COORDINATOR_PORT=8080
+      - KONGDB_COORDINATOR_PORT=6468
     volumes:
       - kongdb-storage-1-data:/app/data
       - ./logs:/app/logs
@@ -107,7 +107,7 @@ services:
       kongdb-coordinator:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:6468/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -118,7 +118,7 @@ services:
     build: .
     container_name: kongdb-storage-2
     ports:
-      - "8084:8080"
+      - "6472:6468"
     environment:
       - KONGDB_NODE_ID=storage-2
       - KONGDB_NODE_ROLE=storage
@@ -126,7 +126,7 @@ services:
       - KONGDB_LOG_LEVEL=debug
       - KONGDB_CLUSTER_MODE=true
       - KONGDB_COORDINATOR_HOST=kongdb-coordinator
-      - KONGDB_COORDINATOR_PORT=8080
+      - KONGDB_COORDINATOR_PORT=6468
     volumes:
       - kongdb-storage-2-data:/app/data
       - ./logs:/app/logs
@@ -136,7 +136,7 @@ services:
       kongdb-coordinator:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:6468/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -148,7 +148,7 @@ services:
     container_name: kongdb-client
     environment:
       - KONGDB_COORDINATOR_HOST=kongdb-coordinator
-      - KONGDB_COORDINATOR_PORT=8080
+      - KONGDB_COORDINATOR_PORT=6468
     volumes:
       - ./examples:/app/examples
       - ./test:/app/test

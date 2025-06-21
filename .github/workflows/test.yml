@@ -27,13 +27,13 @@ jobs:
       run: go mod download
 
     - name: Run unit tests
-      run: go test -v ./internal/...
+      run: go test -v ./tests/unit/...
 
     - name: Run integration tests
-      run: go test -v ./test/integration/...
+      run: go test -v ./tests/integration/...
 
     - name: Run performance tests
-      run: go test -bench=. ./test/performance/...
+      run: go test -bench=. ./tests/performance/...
 
     - name: Check test coverage
       run: go test -coverprofile=coverage.out ./...
@@ -77,7 +77,7 @@ jobs:
       run: go build -o bin/kongdb-node ./cmd/kongdb-node
 
     - name: Upload build artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: kongdb-binaries
         path: bin/ 

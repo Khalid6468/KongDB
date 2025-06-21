@@ -89,7 +89,7 @@ Run KongDB in a distributed cluster:
 # Start the full cluster (5 nodes)
 docker-compose up
 
-# Access the coordinator at http://localhost:8080
+# Access the coordinator at http://localhost:6468
 # Access Grafana monitoring at http://localhost:3000 (admin/admin)
 
 # Stop the cluster
@@ -154,15 +154,15 @@ KONGDB_LOG_LEVEL=debug
 KONGDB_CLUSTER_MODE=true
 KONGDB_BOOTSTRAP=true
 KONGDB_COORDINATOR_HOST=localhost
-KONGDB_COORDINATOR_PORT=8080
+KONGDB_COORDINATOR_PORT=6468
 ```
 
 ## 📊 Monitoring
 
 KongDB includes built-in monitoring:
 
-- **Health checks**: `http://localhost:8080/health`
-- **Metrics**: `http://localhost:8080/metrics`
+- **Health checks**: `http://localhost:6468/health`
+- **Metrics**: `http://localhost:6468/metrics`
 - **Grafana dashboard**: `http://localhost:3000` (when using Docker)
 
 ## 🚨 Troubleshooting
@@ -191,8 +191,8 @@ KongDB includes built-in monitoring:
 
 4. **Port conflicts**
    ```bash
-   # Check what's using port 8080
-   lsof -i :8080
+   # Check what's using port 6468
+   lsof -i :6468
    
    # Kill process or change port in docker-compose.yml
    ```

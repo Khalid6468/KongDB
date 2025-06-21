@@ -1,0 +1,69 @@
+# KongDB Development Roadmap Project Board
+# This file defines the structure for organizing development tasks
+
+name: KongDB Development Roadmap
+description: Track development progress for KongDB relational database
+
+# Project columns
+columns:
+  - name: Backlog
+    description: Planned features and tasks
+  - name: In Progress
+    description: Currently being worked on
+  - name: Review
+    description: Ready for code review
+  - name: Testing
+    description: In testing phase
+  - name: Done
+    description: Completed and merged
+
+# Milestones for different phases
+milestones:
+  - name: Phase 1 - Foundation
+    description: Basic storage and data types
+    due_date: 2025-07-24
+  - name: Phase 2 - SQL Parser
+    description: SQL parsing and basic query processing
+    due_date: 2025-08-28
+  - name: Phase 3 - Indexing & Optimization
+    description: B+ trees, query optimization, bloom filters
+    due_date: 2025-10-09
+  - name: Phase 4 - Transactions & ACID
+    description: Transaction management and ACID compliance
+    due_date: 2025-11-20
+  - name: Phase 5 - Advanced Features
+    description: Advanced SQL features and distributed capabilities
+    due_date: 2025-12-25
+
+# Labels for categorization
+labels:
+  - name: phase-1
+    color: 0e8a16
+    description: Phase 1 - Foundation tasks
+  - name: phase-2
+    color: 1d76db
+    description: Phase 2 - SQL Parser tasks
+  - name: phase-3
+    color: fbca04
+    description: Phase 3 - Indexing & Optimization tasks
+  - name: phase-4
+    color: d93f0b
+    description: Phase 4 - Transactions & ACID tasks
+  - name: phase-5
+    color: 5319e7
+    description: Phase 5 - Advanced Features tasks
+  - name: good-first-issue
+    color: 7057ff
+    description: Good for newcomers
+  - name: help-wanted
+    color: 008672
+    description: Extra attention is needed
+  - name: priority-high
+    color: d73a4a
+    description: High priority
+  - name: priority-medium
+    color: fbca04
+    description: Medium priority
+  - name: priority-low
+    color: 0e8a16
+    description: Low priority 

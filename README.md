@@ -369,7 +369,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Project Maintainer**: [Khalid Shareef]
 - **Email**: [khalimohammed5@gmail.com]
 - **GitHub**: [https://github.com/Khalid6468/kongdb]
-- **Issues**: [https://github.com/yourusername/kongdb/issues]
+- **Issues**: [https://github.com/Khalid6468/kongdb/issues]
 
 ## Roadmap
 
