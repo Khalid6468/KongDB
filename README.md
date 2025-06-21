@@ -6,7 +6,7 @@
 
 ## Overview
 
-KongDB is a relational database management system (RDBMS) implemented in Go, designed to provide a comprehensive learning experience in database internals. The system features a SQL query parser, query optimizer, execution planner, and a storage engine with ACID compliance. **Built entirely using Test-Driven Development (TDD) principles.**
+KongDB is a relational database management system (RDBMS) implemented in Go, designed to provide a comprehensive learning experience in database internals. The system features a SQL query parser, query optimizer, execution planner, and a storage engine with ACID compliance.
 
 ## Key Features
 
@@ -24,7 +24,7 @@ KongDB is a relational database management system (RDBMS) implemented in Go, des
 - **Modular Architecture**: Clean interfaces for easy testing and extension
 - **Performance Focused**: Regular benchmarking and optimization
 
-### Future Distributed Features
+### (Future) Distributed Features
 - **Horizontal Scaling**: Multi-node cluster support
 - **Data Partitioning**: Hash and range-based partitioning
 - **Distributed Transactions**: Two-phase commit with consensus
@@ -37,7 +37,7 @@ KongDB is a relational database management system (RDBMS) implemented in Go, des
 - Understand database internals at a granular level
 - Learn modern database design patterns
 - Experience building complex systems with TDD
-- Master distributed database challenges
+- Develop better understanding of distributed systems
 
 ### Technical Objectives
 - Implement a production-ready database architecture
@@ -59,7 +59,7 @@ KongDB is a relational database management system (RDBMS) implemented in Go, des
 └─────────────────┘    └─────────────────┘    └─────────────────┘
 ```
 
-### Future Distributed Architecture
+### Future Distributed Architecture(Primitive)
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                        Client Layer                             │
